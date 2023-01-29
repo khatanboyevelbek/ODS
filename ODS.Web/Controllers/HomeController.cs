@@ -18,7 +18,7 @@ namespace ODS.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Data()
         {
             return View();
         }
