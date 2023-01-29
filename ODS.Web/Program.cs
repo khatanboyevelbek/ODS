@@ -1,3 +1,6 @@
+using ODS.Web.Brokers.Loggings;
+using ODS.Web.Brokers.Storages;
+
 namespace ODS.Web
 {
     public class Program
@@ -8,6 +11,8 @@ namespace ODS.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<StorageBroker>();
+            AddBrokers(builder.Services);
 
             var app = builder.Build();
 
@@ -31,6 +36,12 @@ namespace ODS.Web
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+        }
+
+        private static void AddBrokers(IServiceCollection services)
+        {
+            services.AddTransient<IStorageBroker, StorageBroker>();
+            services.AddTransient<ILoggingBroker, LoggingBroker>();
         }
     }
 }
