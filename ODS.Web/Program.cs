@@ -1,3 +1,4 @@
+using ODS.Web.Brokers.Loggings;
 using ODS.Web.Brokers.Storages;
 
 namespace ODS.Web
@@ -40,6 +41,7 @@ namespace ODS.Web
         private static void AddBrokers(IServiceCollection services)
         {
             services.AddTransient<IStorageBroker, StorageBroker>();
+            services.AddTransient<ILoggingBroker, LoggingBroker>();
         }
     }
 }
