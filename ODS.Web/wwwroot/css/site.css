@@ -16,3 +16,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.formOfFileHandle {
+    max-width: 800px;
+    display: block;
+    margin: 0 auto;
+}
