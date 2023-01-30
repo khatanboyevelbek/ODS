@@ -14,5 +14,11 @@ namespace ODS.Web.Brokers.Storages
             await broker.SaveChangesAsync();
             return employee;
         }
+
+        public IQueryable<Employee> SelectAllEmployees()
+        {
+            var broker = new StorageBroker(this.Configuration);
+            return broker.Set<Employee>();
+        }
     }
 }
