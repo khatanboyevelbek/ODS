@@ -1,5 +1,6 @@
 using ODS.Web.Brokers.Loggings;
 using ODS.Web.Brokers.Storages;
+using ODS.Web.Services.Foundations.Employees;
 
 namespace ODS.Web
 {
@@ -13,6 +14,7 @@ namespace ODS.Web
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<StorageBroker>();
             AddBrokers(builder.Services);
+            AddFoundationServices(builder.Services);
 
             var app = builder.Build();
 
@@ -42,6 +44,11 @@ namespace ODS.Web
         {
             services.AddTransient<IStorageBroker, StorageBroker>();
             services.AddTransient<ILoggingBroker, LoggingBroker>();
+        }
+
+        private static void AddFoundationServices(IServiceCollection services)
+        {
+            services.AddTransient<IEmployeeService, EmployeeService>();
         }
     }
 }
