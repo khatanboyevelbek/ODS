@@ -6,6 +6,7 @@ namespace ODS.Web.Services.Foundations.Employees
     {
         ValueTask<Employee> AddEmployeeAsync(Employee employee);
         IQueryable<Employee> RetrieveAllEmployees();
-        ValueTask<Employee> UpdateEmployeeAsync(Employee employee);
+        ValueTask<Employee> ModifyEmployeeAsync(Employee employee);
+        ValueTask<Employee> RemoveEmployeeAsync(Employee employee);
     }
 }
