@@ -1,7 +1,20 @@
 ﻿@{
     ViewData["Title"] = "Data of files";
 }
-<h4>@ViewData["Title"]</h4>
+
+<div class="d-flex justify-content-between">
+    <h4>@ViewData["Title"]</h4>
+    <div class="dropdown">
+        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Filter
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">by firstname</a></li>
+            <li><a class="dropdown-item" href="#">by birth of date</a></li>
+            <li><a class="dropdown-item" href="#">None</a></li>
+        </ul>
+    </div>
+</div>
 
 <div class="table-responsive">
     <table class="table table-striped">
@@ -36,4 +49,14 @@
             </tr>
         </tbody>
     </table>
+</div>
+
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Download
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">JSON file</a></li>
+        <li><a class="dropdown-item" href="#">XML file</a></li>
+    </ul>
 </div>
