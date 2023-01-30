@@ -6,7 +6,6 @@ namespace ODS.Web.Brokers.Storages
     {
         ValueTask<Employee> InsertEmployeeAsync(Employee employee);
         IQueryable<Employee> SelectAllEmployees();
-        ValueTask<Employee> SelectEmployeeByIdAsync(Guid id);
         ValueTask<Employee> UpdateEmployeeAsync(Employee employee);
         ValueTask<Employee> DeleteEmployeeAsync(Employee employee);
     }
