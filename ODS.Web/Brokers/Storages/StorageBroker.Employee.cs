@@ -20,5 +20,11 @@ namespace ODS.Web.Brokers.Storages
             var broker = new StorageBroker(this.Configuration);
             return broker.Set<Employee>();
         }
+
+        public async ValueTask<Employee> SelectEmployeeByIdAsync(Guid id)
+        {
+            var broker = new StorageBroker(this.Configuration);
+            return await broker.Employees.FindAsync(id);
+        }
     }
 }
