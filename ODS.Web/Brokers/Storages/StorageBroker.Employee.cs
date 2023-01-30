@@ -34,5 +34,13 @@ namespace ODS.Web.Brokers.Storages
             await broker.SaveChangesAsync();
             return employee;
         }
+
+        public async ValueTask<Employee> DeleteEmployeeAsync(Employee employee)
+        {
+            var broker = new StorageBroker(this.Configuration);
+            broker.Entry(employee).State = EntityState.Deleted;
+            await broker.SaveChangesAsync();
+            return employee;
+        }
     }
 }

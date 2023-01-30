@@ -8,5 +8,6 @@ namespace ODS.Web.Brokers.Storages
         IQueryable<Employee> SelectAllEmployees();
         ValueTask<Employee> SelectEmployeeByIdAsync(Guid id);
         ValueTask<Employee> UpdateEmployeeAsync(Employee employee);
+        ValueTask<Employee> DeleteEmployeeAsync(Employee employee);
     }
 }
