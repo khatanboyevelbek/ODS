@@ -1,4 +1,4 @@
-﻿using ODS.Web.Models;
+﻿using ODS.Web.Models.Foundations;
 
 namespace ODS.Web.Services.Foundations.Employees
 {
