@@ -22,7 +22,7 @@ namespace ODS.Web.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ODS.Web.Models.Employee", b =>
+            modelBuilder.Entity("ODS.Web.Models.Foundations.Employee", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

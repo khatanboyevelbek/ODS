@@ -12,7 +12,7 @@ using ODS.Web.Brokers.Storages;
 namespace ODS.Web.Migrations
 {
     [DbContext(typeof(StorageBroker))]
-    [Migration("20230129072159_AddEmployeeToTable")]
+    [Migration("20230201092029_AddEmployeeToTable")]
     partial class AddEmployeeToTable
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace ODS.Web.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ODS.Web.Models.Employee", b =>
+            modelBuilder.Entity("ODS.Web.Models.Foundations.Employee", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
