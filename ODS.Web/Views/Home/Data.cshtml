@@ -1,6 +1,10 @@
-﻿@{
+﻿@model IQueryable<Employee>
+@{
     ViewData["Title"] = "Data of files";
+    int order = 1;
 }
+
+<partial name="_Notification"></partial>
 
 <div class="d-flex justify-content-between">
     <h4>@ViewData["Title"]</h4>
@@ -9,9 +13,9 @@
             Filter
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">by firstname</a></li>
-            <li><a class="dropdown-item" href="#">by birth of date</a></li>
-            <li><a class="dropdown-item" href="#">None</a></li>
+            <li><a class="dropdown-item" asp-action="Data" asp-route-orderby="firstname">by firstname</a></li>
+            <li><a class="dropdown-item" asp-action="Data" asp-route-orderby="lastname">by lastname</a></li>
+            <li><a class="dropdown-item" asp-action="Data">None</a></li>
         </ul>
     </div>
 </div>
@@ -34,21 +38,28 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>3</td>
-                <td>Larry the Bird</td>
-                <td>twitter</td>
-                <td>twitter</td>
-                <td>twitter</td>
-                <td>twitter</td>
-                <td>twitter</td>
-                <td>twitter</td>
-                <td>twitter</td>
-                <td>twitter</td>
-                <td>twitter</td>
-            </tr>
+            @foreach(var employee in Model)
+            {
+                <tr>
+                    <td>@(order++)</td>
+                    <td>@(@employee.PayrollNumber == "" ? "-" : @employee.PayrollNumber)</td>
+                    <td>@(@employee.FirstName == "" ? "-" : @employee.FirstName)</td>
+                    <td>@(@employee.LastName == "" ? "-" : @employee.LastName)</td>
+                    <td>@employee.DateOfBirth.ToString("dd.MM.yyyy")</td>
+                    <td>@(@employee.PhoneNumber == "" ? "-" : @employee.PhoneNumber)</td>
+                    <td>@(@employee.Address1 == "" ? "-" : @employee.Address1)</td>
+                    <td>@(@employee.Address2 == "" ? "-" : @employee.Address2)</td>
+                    <td>@(@employee.PostalCode == "" ? "-" : @employee.PostalCode)</td>
+                    <td>@(@employee.Email == "" ? "-" : @employee.Email)</td>
+                    <td>@employee.StartedDate.ToString("dd.MM.yyyy")</td>
+                </tr>
+            }
         </tbody>
     </table>
+    @if (Model.ToList().Count == 0)
+    {
+        <p class="text-center text-muted">Not found...</p>
+    }
 </div>
 
 <div class="btn-group">
