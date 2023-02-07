@@ -1,4 +1,6 @@
-﻿namespace ODS.Web.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ODS.Web.Models.Foundations
 {
     public class Employee
     {
