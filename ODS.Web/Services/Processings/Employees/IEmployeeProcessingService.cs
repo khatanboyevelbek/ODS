@@ -1,7 +1,10 @@
-﻿namespace ODS.Web.Services.Processings.Employees
+﻿using ODS.Web.Models.Foundations;
+
+namespace ODS.Web.Services.Processings.Employees
 {
     public interface IEmployeeProcessingService
     {
-        ValueTask UploadFileAndGetFilePath(IFormFile postedFile);
+        ValueTask<int> ImportExternalFileToTable(IFormFile postedFile);
+        IQueryable<Employee> RetrieveAllEmployees();
     }
 }
