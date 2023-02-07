@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ODS.Web.Models;
+using ODS.Web.Models.Foundations;
 
 namespace ODS.Web.Brokers.Storages
 {
