@@ -4,7 +4,8 @@ namespace ODS.Web.Services.Processings.Employees
 {
     public interface IEmployeeProcessingService
     {
-        ValueTask<int> ImportExternalFileToTable(IFormFile postedFile);
+        Task<int> ImportExternalFileToTable(IFormFile postedFile);
+        Task<string> ConvertSqlDataToXmlFile();
         IQueryable<Employee> RetrieveAllEmployees();
     }
 }

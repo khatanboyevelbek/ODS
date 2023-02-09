@@ -1,4 +1,6 @@
-﻿using ExcelDataReader;
+﻿using System.Xml.Serialization;
+using ExcelDataReader;
+using Microsoft.Data.SqlClient;
 using ODS.Web.Brokers.Loggings;
 using ODS.Web.Models.Foundations;
 using ODS.Web.Models.Foundations.Exceptions;
@@ -20,7 +22,7 @@ namespace ODS.Web.Services.Processings.Employees
             this.loggingBroker = loggingBroker;
         }
 
-        public async ValueTask<int> ImportExternalFileToTable(IFormFile postedFile)
+        public async Task<int> ImportExternalFileToTable(IFormFile postedFile)
         {
             string uploadedFilePath = await UploadFileAndGetFilePath(postedFile);
 
@@ -73,7 +75,7 @@ namespace ODS.Web.Services.Processings.Employees
             }
         }
 
-        private async ValueTask<string> UploadFileAndGetFilePath(IFormFile postedFile)
+        private async Task<string> UploadFileAndGetFilePath(IFormFile postedFile)
         {
             string pathOfFile = string.Empty;
             List<string> supportedTypes = new() { ".xls", ".xlsx" };
@@ -95,6 +97,25 @@ namespace ODS.Web.Services.Processings.Employees
             }
 
             throw new NotSupportedFileException();
+        }
+
+        public async Task<string> ConvertSqlDataToXmlFile()
+        {
+            string generateXmlFileName = string.Format("{0}.xml", Guid.NewGuid());
+
+            string pathOfXmlFile =
+                Path.Combine(this.hostingEnvironment.WebRootPath, "downloads", generateXmlFileName);
+
+            IQueryable<Employee> employees = 
+                this.employeeService.RetrieveAllEmployees();
+
+            using(var streamWriter = new StreamWriter(pathOfXmlFile))
+            {
+                var serializer = new XmlSerializer(employees.GetType());
+                serializer.Serialize(streamWriter, employees);
+            }
+
+            return generateXmlFileName;
         }
 
         public IQueryable<Employee> RetrieveAllEmployees() =>
