@@ -1,9 +1,8 @@
-﻿using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ODS.Web.Brokers.Loggings;
 using ODS.Web.Models.Foundations;
 using ODS.Web.Models.Foundations.Exceptions;
+using ODS.Web.Models.Orchestrations.Files;
 using ODS.Web.Services.Orchestrations.Employees;
 
 namespace ODS.Web.Controllers
@@ -69,6 +68,26 @@ namespace ODS.Web.Controllers
                 this.employeeOrchestrationServices.RetrieveEmployeeAscendingOrder(orderby);
 
             return View(ascendingOrderedEmployees);
+        }
+
+
+        public IActionResult Download(string file)
+        {
+            string XmlMimeType = "application/octet-stream";
+
+            FileConfiguration fileConfiguration =
+                this.employeeOrchestrationServices.ConvertSqlDataToXmlFile();
+
+            byte[] XmlFileBytes = System.IO.File.ReadAllBytes(fileConfiguration.FilePath);
+
+            switch (file)
+            {
+                case "xml":
+                    return File(XmlFileBytes, XmlMimeType, fileConfiguration.FileName);
+
+                default:
+                    return RedirectToAction("Data");
+            }
         }
 
         public IActionResult Error()
