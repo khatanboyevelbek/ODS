@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using ODS.Web.Brokers.Loggings;
 using ODS.Web.Models.Foundations;
 using ODS.Web.Models.Foundations.Exceptions;
+using ODS.Web.Models.Orchestrations.Files;
 using ODS.Web.Services.Foundations.Employees;
 
 namespace ODS.Web.Services.Processings.Employees
@@ -99,7 +100,7 @@ namespace ODS.Web.Services.Processings.Employees
             throw new NotSupportedFileException();
         }
 
-        public async Task<string> ConvertSqlDataToXmlFile()
+        public FileConfiguration ConvertSqlDataToXmlFile()
         {
             string generateXmlFileName = string.Format("{0}.xml", Guid.NewGuid());
 
@@ -115,7 +116,11 @@ namespace ODS.Web.Services.Processings.Employees
                 serializer.Serialize(streamWriter, employees);
             }
 
-            return generateXmlFileName;
+            return new FileConfiguration 
+            { 
+                FileName = generateXmlFileName, 
+                FilePath = pathOfXmlFile 
+            };
         }
 
         public IQueryable<Employee> RetrieveAllEmployees() =>
