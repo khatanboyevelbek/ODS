@@ -1,5 +1,6 @@
 ﻿using ODS.Web.Brokers.Loggings;
 using ODS.Web.Models.Foundations;
+using ODS.Web.Models.Orchestrations.Files;
 using ODS.Web.Services.Processings.Employees;
 
 namespace ODS.Web.Services.Orchestrations.Employees
@@ -8,20 +9,23 @@ namespace ODS.Web.Services.Orchestrations.Employees
     {
         private readonly ILoggingBroker loggingBroker;
         private readonly IEmployeeProcessingService employeeProcessingService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
         public EmployeeOrchestrationServices(
             IEmployeeProcessingService employeeProcessingService, 
-            ILoggingBroker loggingBroker)
+            ILoggingBroker loggingBroker, IWebHostEnvironment webHostEnvironment)
         {
             this.employeeProcessingService = employeeProcessingService;
             this.loggingBroker = loggingBroker;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
-        public ValueTask<int> ImportExternalFileToTable(IFormFile postedFile) => 
+        public Task<int> ImportExternalFileToTable(IFormFile postedFile) => 
             this.employeeProcessingService.ImportExternalFileToTable(postedFile);
 
-        public Task<string> ConvertSqlDataToXmlFile() =>
+        public FileConfiguration ConvertSqlDataToXmlFile() =>
             this.employeeProcessingService.ConvertSqlDataToXmlFile();
+            
 
         public IQueryable<Employee> RetrieveEmployeeAscendingOrder(string? orderby)
         {

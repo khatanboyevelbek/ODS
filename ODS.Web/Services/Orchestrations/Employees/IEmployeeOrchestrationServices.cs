@@ -1,11 +1,12 @@
 ﻿using ODS.Web.Models.Foundations;
+using ODS.Web.Models.Orchestrations.Files;
 
 namespace ODS.Web.Services.Orchestrations.Employees
 {
     public interface IEmployeeOrchestrationServices
     {
         IQueryable<Employee> RetrieveEmployeeAscendingOrder(string? orderby);
-        ValueTask<int> ImportExternalFileToTable(IFormFile postedFile);
-        Task<string> ConvertSqlDataToXmlFile();
+        Task<int> ImportExternalFileToTable(IFormFile postedFile);
+        FileConfiguration ConvertSqlDataToXmlFile();
     }
 }
