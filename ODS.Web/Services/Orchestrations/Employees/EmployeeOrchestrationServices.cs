@@ -20,6 +20,9 @@ namespace ODS.Web.Services.Orchestrations.Employees
         public ValueTask<int> ImportExternalFileToTable(IFormFile postedFile) => 
             this.employeeProcessingService.ImportExternalFileToTable(postedFile);
 
+        public Task<string> ConvertSqlDataToXmlFile() =>
+            this.employeeProcessingService.ConvertSqlDataToXmlFile();
+
         public IQueryable<Employee> RetrieveEmployeeAscendingOrder(string? orderby)
         {
             IQueryable<Employee> employees =

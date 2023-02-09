@@ -6,5 +6,6 @@ namespace ODS.Web.Services.Orchestrations.Employees
     {
         IQueryable<Employee> RetrieveEmployeeAscendingOrder(string? orderby);
         ValueTask<int> ImportExternalFileToTable(IFormFile postedFile);
+        Task<string> ConvertSqlDataToXmlFile();
     }
 }
