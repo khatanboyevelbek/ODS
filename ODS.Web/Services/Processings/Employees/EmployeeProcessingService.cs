@@ -1,6 +1,8 @@
-﻿using System.Xml.Serialization;
+﻿using System.Text.Json;
+using System.Xml.Serialization;
 using ExcelDataReader;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 using ODS.Web.Brokers.Loggings;
 using ODS.Web.Models.Foundations;
 using ODS.Web.Models.Foundations.Exceptions;
@@ -105,7 +107,7 @@ namespace ODS.Web.Services.Processings.Employees
             string generateXmlFileName = string.Format("{0}.xml", Guid.NewGuid());
 
             string pathOfXmlFile =
-                Path.Combine(this.hostingEnvironment.WebRootPath, "downloads", generateXmlFileName);
+                Path.Combine(this.hostingEnvironment.WebRootPath, @"downloads\xml", generateXmlFileName);
 
             IQueryable<Employee> employees = 
                 this.employeeService.RetrieveAllEmployees();
@@ -120,6 +122,30 @@ namespace ODS.Web.Services.Processings.Employees
             { 
                 FileName = generateXmlFileName, 
                 FilePath = pathOfXmlFile 
+            };
+        }
+
+        public async Task<FileConfiguration> ConvertSqlDataToJsonFile()
+        {
+            string generateJsonFileName = string.Format("{0}.json", Guid.NewGuid());
+
+            string pathOfJsonFile =
+                Path.Combine(this.hostingEnvironment.WebRootPath, @"downloads\json", generateJsonFileName);
+
+            IQueryable<Employee> employees =
+                this.employeeService.RetrieveAllEmployees();
+
+            string json = JsonConvert.SerializeObject(employees);
+
+            using (var streamWriter = new StreamWriter(pathOfJsonFile))
+            {
+                await streamWriter.WriteLineAsync(json);
+            }
+
+            return new FileConfiguration
+            {
+                FileName = generateJsonFileName,
+                FilePath = pathOfJsonFile
             };
         }
 

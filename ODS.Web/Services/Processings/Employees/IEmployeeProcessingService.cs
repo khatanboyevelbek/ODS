@@ -7,6 +7,7 @@ namespace ODS.Web.Services.Processings.Employees
     {
         Task<int> ImportExternalFileToTable(IFormFile postedFile);
         FileConfiguration ConvertSqlDataToXmlFile();
+        Task<FileConfiguration> ConvertSqlDataToJsonFile();
         IQueryable<Employee> RetrieveAllEmployees();
     }
 }
