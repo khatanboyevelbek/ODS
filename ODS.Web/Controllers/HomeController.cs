@@ -72,23 +72,17 @@ namespace ODS.Web.Controllers
         }
 
 
-        public async Task<IActionResult> Download(string file)
+        public IActionResult Download(string file)
         {
             FileConfiguration xmlFileConfiguration =
                 this.employeeOrchestrationServices.ConvertSqlDataToXmlFile();
 
-            FileConfiguration jsonFileConfiguration =
-               await this.employeeOrchestrationServices.ConvertSqlDataToJsonFile();
-
             byte[] xmlFileBytes = System.IO.File.ReadAllBytes(xmlFileConfiguration.FilePath);
-            byte[] jsonFileBytes = Encoding.UTF8.GetBytes(jsonFileConfiguration.FilePath);
 
             switch (file)
             {
                 case "xml":
                     return File(xmlFileBytes, "application/octet-stream", xmlFileConfiguration.FileName);
-                case "json":
-                    return File(jsonFileBytes, "application/json", jsonFileConfiguration.FileName);
                 default:
                     return RedirectToAction("Data");
             }
