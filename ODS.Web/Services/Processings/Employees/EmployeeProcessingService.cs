@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using ExcelDataReader;
 using Microsoft.Data.SqlClient;
@@ -122,30 +124,6 @@ namespace ODS.Web.Services.Processings.Employees
             { 
                 FileName = generateXmlFileName, 
                 FilePath = pathOfXmlFile 
-            };
-        }
-
-        public async Task<FileConfiguration> ConvertSqlDataToJsonFile()
-        {
-            string generateJsonFileName = string.Format("{0}.json", Guid.NewGuid());
-
-            string pathOfJsonFile =
-                Path.Combine(this.hostingEnvironment.WebRootPath, @"downloads\json", generateJsonFileName);
-
-            IQueryable<Employee> employees =
-                this.employeeService.RetrieveAllEmployees();
-
-            string json = JsonConvert.SerializeObject(employees);
-
-            using (var streamWriter = new StreamWriter(pathOfJsonFile))
-            {
-                await streamWriter.WriteLineAsync(json);
-            }
-
-            return new FileConfiguration
-            {
-                FileName = generateJsonFileName,
-                FilePath = pathOfJsonFile
             };
         }
 
