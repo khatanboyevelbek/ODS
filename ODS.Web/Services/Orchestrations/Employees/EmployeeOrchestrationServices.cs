@@ -26,10 +26,6 @@ namespace ODS.Web.Services.Orchestrations.Employees
         public FileConfiguration ConvertSqlDataToXmlFile() =>
             this.employeeProcessingService.ConvertSqlDataToXmlFile();
 
-        public async Task<FileConfiguration> ConvertSqlDataToJsonFile() =>
-            await this.employeeProcessingService.ConvertSqlDataToJsonFile();
-
-
         public IQueryable<Employee> RetrieveEmployeeAscendingOrder(string? orderby)
         {
             IQueryable<Employee> employees =
