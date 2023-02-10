@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using ODS.Web.Brokers.Loggings;
 using ODS.Web.Models.Foundations;
 using ODS.Web.Models.Foundations.Exceptions;
@@ -71,20 +72,23 @@ namespace ODS.Web.Controllers
         }
 
 
-        public IActionResult Download(string file)
+        public async Task<IActionResult> Download(string file)
         {
-            string XmlMimeType = "application/octet-stream";
-
-            FileConfiguration fileConfiguration =
+            FileConfiguration xmlFileConfiguration =
                 this.employeeOrchestrationServices.ConvertSqlDataToXmlFile();
 
-            byte[] XmlFileBytes = System.IO.File.ReadAllBytes(fileConfiguration.FilePath);
+            FileConfiguration jsonFileConfiguration =
+               await this.employeeOrchestrationServices.ConvertSqlDataToJsonFile();
+
+            byte[] xmlFileBytes = System.IO.File.ReadAllBytes(xmlFileConfiguration.FilePath);
+            byte[] jsonFileBytes = Encoding.UTF8.GetBytes(jsonFileConfiguration.FilePath);
 
             switch (file)
             {
                 case "xml":
-                    return File(XmlFileBytes, XmlMimeType, fileConfiguration.FileName);
-
+                    return File(xmlFileBytes, "application/octet-stream", xmlFileConfiguration.FileName);
+                case "json":
+                    return File(jsonFileBytes, "application/json", jsonFileConfiguration.FileName);
                 default:
                     return RedirectToAction("Data");
             }
