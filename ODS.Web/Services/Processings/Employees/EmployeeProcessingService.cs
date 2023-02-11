@@ -104,7 +104,7 @@ namespace ODS.Web.Services.Processings.Employees
             string generateXmlFileName = string.Format("{0}.xml", Guid.NewGuid());
 
             string pathOfXmlFile =
-                Path.Combine(this.hostingEnvironment.WebRootPath, @"downloads\xml", generateXmlFileName);
+                Path.Combine(this.hostingEnvironment.WebRootPath, "downloads", generateXmlFileName);
 
             IQueryable<Employee> employees = 
                 this.employeeService.RetrieveAllEmployees();
