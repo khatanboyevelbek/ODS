@@ -361,5 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/ODS.Web/wwwroot/uploads/*
-/ODS.Web/wwwroot/downloads/*
+/ODS.Web/wwwroot/downloads/949532e0-419c-469c-aaae-a593be0a28a1.xml
+/ODS.Web/wwwroot/uploads/44888e93-a889-43af-bdc3-86af1f61bdc9Test.xlsx
+/ODS.Web/wwwroot/downloads
+/ODS.Web/wwwroot/uploads
