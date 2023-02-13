@@ -85,8 +85,14 @@ namespace ODS.Web.Services.Processings.Employees
             {
                 string fileName = $"{Guid.NewGuid()}{postedFile.FileName}";
 
-                pathOfFile = 
-                    Path.Combine(this.hostingEnvironment.WebRootPath, "uploads", fileName);
+                string uploadsFolder = Path.Combine(this.hostingEnvironment.WebRootPath, "uploads");
+
+                if(!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                pathOfFile = Path.Combine(uploadsFolder, fileName);
 
                 using (var stream = new FileStream(pathOfFile, FileMode.CreateNew, FileAccess.Write))
                 {
