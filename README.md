@@ -1,4 +1,2 @@
-# Setup
-1. Clone this repository and open with IDE
-2. Create downloads and uploads folders in wwwroot
-3. Run web project
+# ODS
+This is source code of ASP.NET Core MVC web site which is used to get data from Excel file
