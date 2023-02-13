@@ -109,8 +109,16 @@ namespace ODS.Web.Services.Processings.Employees
         {
             string generateXmlFileName = string.Format("{0}.xml", Guid.NewGuid());
 
+            string downloadsFolder =
+                Path.Combine(this.hostingEnvironment.WebRootPath, "downloads");
+
+            if(!Directory.Exists(downloadsFolder))
+            {
+                Directory.CreateDirectory(downloadsFolder);
+            }
+
             string pathOfXmlFile =
-                Path.Combine(this.hostingEnvironment.WebRootPath, "downloads", generateXmlFileName);
+                Path.Combine(downloadsFolder, generateXmlFileName);
 
             IQueryable<Employee> employees = 
                 this.employeeService.RetrieveAllEmployees();
